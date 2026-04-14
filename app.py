@@ -31,4 +31,34 @@ def get_imoveis():
 @app.route("/api/imoveis", methods=["POST"])
 def add_imovel():
     try:
-        imoveis = ler
+        imoveis = ler()
+        novo = request.json
+        if not novo:
+            return jsonify({"erro": "dados vazios"}), 400
+        imoveis.append(novo)
+        salvar(imoveis)
+        return jsonify({"ok": True})
+    except Exception as e:
+        return jsonify({"erro": str(e)}), 500
+
+
+@app.route("/api/imoveis/<id>", methods=["DELETE"])
+def delete_imovel(id):
+    imoveis = ler()
+    imoveis = [i for i in imoveis if i.get("id") != id]
+    salvar(imoveis)
+    return jsonify({"ok": True})
+
+
+@app.route("/admin")
+def admin():
+    return render_template("index.html")
+
+
+@app.route("/")
+def site():
+    return render_template("index.html")
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
