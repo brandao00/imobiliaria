@@ -7,606 +7,129 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
   :root {
-    --verde: #1a9e6e;
-    --verde-dark: #0f6e50;
-    --verde-light: #e0f5ed;
-    --verde-mid: #5dcaa5;
-    --bg: #f4f6f5;
-    --sidebar-bg: #0d1f1a;
-    --sidebar-text: #a8c4bb;
-    --sidebar-active: #1a9e6e;
-    --white: #ffffff;
-    --border: #e2e8e5;
-    --text: #1a2420;
-    --text-2: #6b7c78;
-    --text-3: #9db0aa;
-    --red: #e05252;
-    --red-light: #fdeaea;
-    --amber: #e09820;
-    --amber-light: #fef5e0;
-    --blue: #3a82d8;
-    --blue-light: #e6f0fc;
-    --radius: 10px;
-    --radius-lg: 14px;
+    --verde: #1a9e6e; --verde-dark: #0f6e50; --verde-light: #e0f5ed; --verde-mid: #5dcaa5;
+    --bg: #f4f6f5; --sidebar-bg: #0d1f1a; --sidebar-text: #a8c4bb;
+    --white: #ffffff; --border: #e2e8e5; --text: #1a2420; --text-2: #6b7c78; --text-3: #9db0aa;
+    --red: #e05252; --red-light: #fdeaea; --amber: #e09820; --amber-light: #fef5e0;
+    --blue: #3a82d8; --blue-light: #e6f0fc; --radius: 10px; --radius-lg: 14px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    font-size: 14px;
-  }
-
-  /* ── SIDEBAR ── */
-  .sidebar {
-    width: 240px;
-    min-height: 100vh;
-    background: var(--sidebar-bg);
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    position: fixed;
-    top: 0; left: 0;
-    z-index: 100;
-    transition: transform .3s;
-  }
-
-  .sidebar-logo {
-    padding: 28px 24px 20px;
-    border-bottom: 1px solid rgba(255,255,255,.07);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .sidebar-logo .logo-icon {
-    width: 34px; height: 34px;
-    background: var(--verde);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-  }
-
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; font-size: 14px; }
+  .sidebar { width: 240px; min-height: 100vh; background: var(--sidebar-bg); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 100; transition: transform .3s; }
+  .sidebar-logo { padding: 28px 24px 20px; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; gap: 10px; }
+  .sidebar-logo .logo-icon { width: 34px; height: 34px; background: var(--verde); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
   .sidebar-logo .logo-icon svg { width: 18px; height: 18px; fill: white; }
-
-  .sidebar-logo .logo-text {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px;
-    color: white;
-    letter-spacing: .3px;
-  }
-
+  .sidebar-logo .logo-text { font-family: 'DM Serif Display', serif; font-size: 18px; color: white; }
   .sidebar-logo .logo-text span { color: var(--verde-mid); }
-
   .sidebar-nav { padding: 16px 12px; flex: 1; }
-
-  .nav-section {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #3a5a52;
-    padding: 16px 12px 6px;
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: var(--sidebar-text);
-    font-size: 13.5px;
-    font-weight: 400;
-    transition: all .18s;
-    margin-bottom: 2px;
-    user-select: none;
-  }
-
+  .nav-section { font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: #3a5a52; padding: 16px 12px 6px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; cursor: pointer; color: var(--sidebar-text); font-size: 13.5px; transition: all .18s; margin-bottom: 2px; user-select: none; }
   .nav-item:hover { background: rgba(255,255,255,.06); color: white; }
-
-  .nav-item.active {
-    background: var(--verde);
-    color: white;
-    font-weight: 500;
-  }
-
+  .nav-item.active { background: var(--verde); color: white; font-weight: 500; }
   .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; opacity: .85; }
-
-  .sidebar-footer {
-    padding: 16px 12px 24px;
-    border-top: 1px solid rgba(255,255,255,.07);
-  }
-
-  .sidebar-footer .user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background .18s;
-  }
-
+  .sidebar-footer { padding: 16px 12px 24px; border-top: 1px solid rgba(255,255,255,.07); }
+  .sidebar-footer .user-info { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; cursor: pointer; }
   .sidebar-footer .user-info:hover { background: rgba(255,255,255,.06); }
-
-  .avatar {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    background: var(--verde);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 600; color: white;
-    flex-shrink: 0;
-  }
-
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--verde); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: white; }
   .user-name { font-size: 13px; color: white; font-weight: 500; }
   .user-role { font-size: 11px; color: var(--sidebar-text); }
-
-  /* ── MAIN ── */
-  .main {
-    margin-left: 240px;
-    flex: 1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .topbar {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 0 32px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-
-  .topbar-left h1 { font-size: 17px; font-weight: 600; color: var(--text); }
-  .topbar-left p { font-size: 12px; color: var(--text-3); margin-top: 1px; }
-
+  .main { margin-left: 240px; flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+  .topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+  .topbar-left h1 { font-size: 17px; font-weight: 600; }
   .topbar-right { display: flex; align-items: center; gap: 10px; }
-
   .content { padding: 28px 32px; flex: 1; }
-
-  /* ── BUTTONS ── */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border-radius: var(--radius);
-    border: 1.5px solid var(--border);
-    background: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    color: var(--text);
-    transition: all .15s;
-  }
-
-  .btn:hover { background: var(--bg); border-color: #ccc; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--radius); border: 1.5px solid var(--border); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text); transition: all .15s; }
+  .btn:hover { background: var(--bg); }
   .btn svg { width: 15px; height: 15px; }
-
-  .btn-primary {
-    background: var(--verde);
-    color: white;
-    border-color: var(--verde);
-  }
-  .btn-primary:hover { background: var(--verde-dark); border-color: var(--verde-dark); }
-
-  .btn-danger {
-    background: var(--red-light);
-    color: var(--red);
-    border-color: #f5c6c6;
-  }
-  .btn-danger:hover { background: #fad4d4; }
-
+  .btn-primary { background: var(--verde); color: white; border-color: var(--verde); }
+  .btn-primary:hover { background: var(--verde-dark); }
+  .btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+  .btn-danger { background: var(--red-light); color: var(--red); border-color: #f5c6c6; }
   .btn-sm { padding: 5px 11px; font-size: 12px; }
-
-  /* ── STATS CARDS ── */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .stat-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 20px;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .stat-icon {
-    width: 42px; height: 42px;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+  .stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; display: flex; align-items: flex-start; gap: 14px; }
+  .stat-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .stat-icon svg { width: 20px; height: 20px; }
   .stat-icon.green { background: var(--verde-light); color: var(--verde); }
   .stat-icon.blue { background: var(--blue-light); color: var(--blue); }
   .stat-icon.amber { background: var(--amber-light); color: var(--amber); }
   .stat-icon.red { background: var(--red-light); color: var(--red); }
-
-  .stat-info { flex: 1; }
-  .stat-num { font-size: 26px; font-weight: 600; color: var(--text); line-height: 1.1; }
+  .stat-num { font-size: 26px; font-weight: 600; line-height: 1.1; }
   .stat-label { font-size: 12px; color: var(--text-2); margin-top: 3px; }
-
-  /* ── CARDS ── */
-  .card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    margin-bottom: 20px;
-  }
-
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .card-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 20px; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .card-title { font-size: 14px; font-weight: 600; }
   .card-subtitle { font-size: 12px; color: var(--text-3); margin-top: 2px; }
-
-  /* ── FORM ── */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
   .form-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
   .full { grid-column: 1 / -1; }
-
   .form-group { display: flex; flex-direction: column; gap: 5px; }
-
-  label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-2);
-    letter-spacing: .2px;
-  }
-
-  input, select, textarea {
-    padding: 9px 12px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13.5px;
-    color: var(--text);
-    background: var(--white);
-    transition: border-color .15s, box-shadow .15s;
-    width: 100%;
-  }
-
-  input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--verde);
-    box-shadow: 0 0 0 3px rgba(26,158,110,.1);
-  }
-
+  label { font-size: 12px; font-weight: 600; color: var(--text-2); }
+  input, select, textarea { padding: 9px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13.5px; color: var(--text); background: var(--white); transition: border-color .15s; width: 100%; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--verde); box-shadow: 0 0 0 3px rgba(26,158,110,.1); }
   textarea { min-height: 110px; resize: vertical; line-height: 1.6; }
-
-  /* ── IMOVEIS GRID ── */
-  .imoveis-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 18px;
-  }
-
-  .imovel-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: box-shadow .2s, transform .2s;
-  }
-
-  .imovel-card:hover {
-    box-shadow: 0 6px 24px rgba(0,0,0,.08);
-    transform: translateY(-2px);
-  }
-
-  .imovel-img {
-    height: 170px;
-    background: linear-gradient(135deg, #d4ede5 0%, #b5dfd3 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-  }
-
+  .imoveis-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 18px; }
+  .imovel-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: box-shadow .2s, transform .2s; }
+  .imovel-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.08); transform: translateY(-2px); }
+  .imovel-img { height: 170px; background: linear-gradient(135deg, #d4ede5, #b5dfd3); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
   .imovel-img img { width: 100%; height: 100%; object-fit: cover; }
-
-  .imovel-img .no-foto {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    color: var(--verde-dark);
-    opacity: .6;
-  }
-
+  .imovel-img .no-foto { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--verde-dark); opacity: .6; }
   .imovel-img .no-foto svg { width: 32px; height: 32px; }
   .imovel-img .no-foto span { font-size: 12px; }
-
-  .img-count {
-    position: absolute;
-    bottom: 8px; right: 8px;
-    background: rgba(0,0,0,.55);
-    color: white;
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 20px;
-    font-weight: 500;
-  }
-
+  .img-count { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,.55); color: white; font-size: 11px; padding: 3px 8px; border-radius: 20px; }
   .imovel-body { padding: 14px 16px 16px; }
-
-  .imovel-badges {
-    display: flex;
-    gap: 5px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
-  }
-
-  .badge {
-    font-size: 10.5px;
-    font-weight: 600;
-    padding: 3px 9px;
-    border-radius: 20px;
-    letter-spacing: .2px;
-  }
-
+  .imovel-badges { display: flex; gap: 5px; margin-bottom: 8px; flex-wrap: wrap; }
+  .badge { font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 20px; }
   .badge-venda { background: var(--blue-light); color: var(--blue); }
   .badge-aluguel { background: var(--amber-light); color: #8c6010; }
   .badge-tipo { background: var(--verde-light); color: var(--verde-dark); }
   .badge-ativo { background: #eafaf0; color: #1a7a45; }
   .badge-inativo { background: #f0f0f0; color: #888; }
-
-  .imovel-title {
-    font-size: 14.5px;
-    font-weight: 600;
-    margin-bottom: 3px;
-    color: var(--text);
-    line-height: 1.35;
-  }
-
-  .imovel-local {
-    font-size: 12px;
-    color: var(--text-3);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .imovel-local svg { width: 12px; height: 12px; flex-shrink: 0; }
-
-  .imovel-price {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--verde);
-    margin-bottom: 10px;
-  }
-
-  .imovel-infos {
-    display: flex;
-    gap: 12px;
-    font-size: 12px;
-    color: var(--text-2);
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-  }
-
-  .imovel-info-item {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
+  .imovel-title { font-size: 14.5px; font-weight: 600; margin-bottom: 3px; line-height: 1.35; }
+  .imovel-local { font-size: 12px; color: var(--text-3); margin-bottom: 10px; display: flex; align-items: center; gap: 4px; }
+  .imovel-local svg { width: 12px; height: 12px; }
+  .imovel-price { font-size: 18px; font-weight: 700; color: var(--verde); margin-bottom: 10px; }
+  .imovel-infos { display: flex; gap: 12px; font-size: 12px; color: var(--text-2); margin-bottom: 12px; flex-wrap: wrap; }
+  .imovel-info-item { display: flex; align-items: center; gap: 4px; }
   .imovel-info-item svg { width: 13px; height: 13px; opacity: .7; }
-
   .imovel-divider { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
-
   .imovel-actions { display: flex; gap: 8px; }
-
-  /* ── FILTERS ── */
-  .filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
+  .filters { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
   .filters input, .filters select { width: auto; }
   .search-input { min-width: 220px; }
-
-  /* ── UPLOAD ── */
-  .upload-zone {
-    border: 2px dashed var(--border);
-    border-radius: var(--radius-lg);
-    padding: 28px;
-    text-align: center;
-    cursor: pointer;
-    transition: all .2s;
-    color: var(--text-3);
-  }
-
-  .upload-zone:hover {
-    border-color: var(--verde);
-    background: var(--verde-light);
-    color: var(--verde-dark);
-  }
-
+  .upload-zone { border: 2px dashed var(--border); border-radius: var(--radius-lg); padding: 28px; text-align: center; cursor: pointer; transition: all .2s; color: var(--text-3); }
+  .upload-zone:hover { border-color: var(--verde); background: var(--verde-light); color: var(--verde-dark); }
   .upload-zone svg { width: 36px; height: 36px; margin-bottom: 8px; opacity: .6; }
   .upload-zone p { font-size: 13px; margin-bottom: 4px; font-weight: 500; }
   .upload-zone span { font-size: 11px; }
-
-  .fotos-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 14px;
-  }
-
-  .foto-thumb {
-    width: 88px; height: 78px;
-    border-radius: var(--radius);
-    overflow: hidden;
-    position: relative;
-    border: 1px solid var(--border);
-  }
-
+  .fotos-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .foto-thumb { width: 88px; height: 78px; border-radius: var(--radius); overflow: hidden; position: relative; border: 1px solid var(--border); }
   .foto-thumb img { width: 100%; height: 100%; object-fit: cover; }
-
-  .foto-del {
-    position: absolute;
-    top: 4px; right: 4px;
-    background: rgba(0,0,0,.6);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 18px; height: 18px;
-    font-size: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-  }
-
+  .foto-del { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,.6); color: white; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
   .foto-del:hover { background: var(--red); }
-
-  /* ── EMPTY STATE ── */
-  .empty-state {
-    text-align: center;
-    padding: 48px 24px;
-    color: var(--text-3);
-  }
-
-  .empty-state svg {
-    width: 52px; height: 52px;
-    margin-bottom: 14px;
-    opacity: .35;
-  }
-
+  .empty-state { text-align: center; padding: 48px 24px; color: var(--text-3); }
+  .empty-state svg { width: 52px; height: 52px; margin-bottom: 14px; opacity: .35; }
   .empty-state p { font-size: 14px; color: var(--text-2); margin-bottom: 4px; font-weight: 500; }
   .empty-state span { font-size: 12px; }
-
-  /* ── TABLE ── */
   .table-wrapper { overflow-x: auto; }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
-  th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-3);
-    letter-spacing: .5px;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border);
-  }
-
-  td {
-    padding: 13px 14px;
-    border-bottom: 1px solid #f0f4f2;
-    vertical-align: middle;
-    color: var(--text);
-  }
-
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600; color: var(--text-3); letter-spacing: .5px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+  td { padding: 13px 14px; border-bottom: 1px solid #f0f4f2; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
   tr:hover td { background: #fafcfb; }
-
-  /* ── MODAL / TOAST ── */
-  .toast {
-    position: fixed;
-    bottom: 24px; right: 24px;
-    background: var(--text);
-    color: white;
-    padding: 12px 20px;
-    border-radius: var(--radius);
-    font-size: 13px;
-    font-weight: 500;
-    display: none;
-    z-index: 9999;
-    box-shadow: 0 4px 20px rgba(0,0,0,.2);
-    max-width: 320px;
-    line-height: 1.4;
-  }
-
+  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--text); color: white; padding: 12px 20px; border-radius: var(--radius); font-size: 13px; font-weight: 500; display: none; z-index: 9999; box-shadow: 0 4px 20px rgba(0,0,0,.2); max-width: 320px; }
   .toast.success { background: var(--verde); }
   .toast.error { background: var(--red); }
-
-  /* ── PAGES ── */
   .page { display: none; }
   .page.active { display: block; }
-
-  /* ── AMENITIES ── */
-  .amenities-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-top: 4px;
-  }
-
-  .amenity-item {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 13px;
-    padding: 7px 10px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: all .15s;
-    color: var(--text-2);
-    user-select: none;
-  }
-
+  .amenities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
+  .amenity-item { display: flex; align-items: center; gap: 7px; font-size: 13px; padding: 7px 10px; border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: all .15s; color: var(--text-2); user-select: none; }
   .amenity-item:hover { border-color: var(--verde); color: var(--verde); }
   .amenity-item.sel { border-color: var(--verde); background: var(--verde-light); color: var(--verde-dark); font-weight: 500; }
-  .amenity-item input { display: none; }
-
-  /* ── LEADS TABLE ── */
-  .lead-status { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; }
-  .lead-dot { width: 7px; height: 7px; border-radius: 50%; }
-  .lead-dot.novo { background: var(--blue); }
-  .lead-dot.contato { background: var(--amber); }
-  .lead-dot.fechado { background: var(--verde); }
-
-  /* ── MOBILE TOGGLE ── */
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-  }
-
+  .loading { display: flex; align-items: center; justify-content: center; padding: 48px; gap: 10px; color: var(--text-3); font-size: 13px; }
+  .spinner { width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--verde); border-radius: 50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
   @media (max-width: 900px) {
     .sidebar { transform: translateX(-100%); }
     .sidebar.open { transform: translateX(0); }
@@ -614,12 +137,11 @@
     .menu-toggle { display: block; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .amenities-grid { grid-template-columns: 1fr 1fr; }
-    .form-grid, .form-grid-3, .form-grid-4 { grid-template-columns: 1fr; }
+    .form-grid, .form-grid-4 { grid-template-columns: 1fr; }
     .full { grid-column: 1; }
     .content { padding: 16px; }
     .topbar { padding: 0 16px; }
   }
-
   @media (max-width: 480px) {
     .stats-grid { grid-template-columns: 1fr; }
     .imoveis-grid { grid-template-columns: 1fr; }
@@ -628,15 +150,11 @@
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-    </div>
+    <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
     <div class="logo-text">Imob<span>Admin</span></div>
   </div>
-
   <nav class="sidebar-nav">
     <div class="nav-section">Principal</div>
     <div class="nav-item active" onclick="showPage('dashboard',this)">
@@ -657,31 +175,21 @@
       Leads
     </div>
   </nav>
-
   <div class="sidebar-footer">
     <div class="user-info">
-      <div class="avatar" id="sidebar-avatar">AD</div>
-      <div>
-        <div class="user-name" id="sidebar-nome">Administrador</div>
-        <div class="user-role">Imobiliária</div>
-      </div>
+      <div class="avatar">AD</div>
+      <div><div class="user-name">Administrador</div><div class="user-role">Imobiliária</div></div>
     </div>
   </div>
 </aside>
 
-<!-- MAIN -->
 <div class="main">
-
-  <!-- TOPBAR -->
   <header class="topbar">
     <div style="display:flex;align-items:center;gap:12px">
       <button class="menu-toggle" onclick="toggleSidebar()">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
-      <div class="topbar-left">
-        <h1 id="topbar-title">Dashboard</h1>
-        <p id="topbar-sub" style="font-size:12px;color:var(--text-3)"></p>
-      </div>
+      <div class="topbar-left"><h1 id="topbar-title">Dashboard</h1></div>
     </div>
     <div class="topbar-right">
       <span id="topbar-date" style="font-size:12px;color:var(--text-3)"></span>
@@ -690,66 +198,36 @@
 
   <div class="content">
 
-    <!-- ═══ DASHBOARD ═══ -->
+    <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon green">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <div class="stat-info">
-            <div class="stat-num" id="s-total">0</div>
-            <div class="stat-label">Total de imóveis</div>
-          </div>
+          <div class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="stat-info"><div class="stat-num" id="s-total">0</div><div class="stat-label">Total de imóveis</div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon blue">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-          </div>
-          <div class="stat-info">
-            <div class="stat-num" id="s-venda">0</div>
-            <div class="stat-label">À venda</div>
-          </div>
+          <div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <div class="stat-info"><div class="stat-num" id="s-venda">0</div><div class="stat-label">À venda</div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon amber">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
-          <div class="stat-info">
-            <div class="stat-num" id="s-aluguel">0</div>
-            <div class="stat-label">Para alugar</div>
-          </div>
+          <div class="stat-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div class="stat-info"><div class="stat-num" id="s-aluguel">0</div><div class="stat-label">Para alugar</div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon red">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/></svg>
-          </div>
-          <div class="stat-info">
-            <div class="stat-num" id="s-leads">0</div>
-            <div class="stat-label">Leads recebidos</div>
-          </div>
+          <div class="stat-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div class="stat-info"><div class="stat-num" id="s-leads">0</div><div class="stat-label">Leads recebidos</div></div>
         </div>
       </div>
-
       <div class="card">
         <div class="card-header">
-          <div>
-            <div class="card-title">Imóveis recentes</div>
-            <div class="card-subtitle">Últimos cadastrados</div>
-          </div>
+          <div><div class="card-title">Imóveis recentes</div><div class="card-subtitle">Últimos cadastrados</div></div>
           <button class="btn btn-sm" onclick="showPage('imoveis', document.querySelectorAll('.nav-item')[1])">Ver todos</button>
         </div>
-        <div id="dash-recentes">
-          <div class="empty-state">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            <p>Nenhum imóvel ainda</p>
-            <span>Clique em "Novo imóvel" para começar</span>
-          </div>
-        </div>
+        <div id="dash-recentes"><div class="loading"><div class="spinner"></div> Carregando...</div></div>
       </div>
     </div>
 
-    <!-- ═══ IMÓVEIS ═══ -->
+    <!-- IMÓVEIS -->
     <div class="page" id="page-imoveis">
       <div class="filters">
         <input class="search-input" type="text" placeholder="🔍  Buscar por título ou cidade..." id="f-busca" oninput="renderImoveis()">
@@ -759,68 +237,37 @@
           <option>Sala Comercial</option><option>Galpão</option><option>Chácara</option>
         </select>
         <select id="f-final" onchange="renderImoveis()">
-          <option value="">Venda + Aluguel</option>
-          <option>Venda</option><option>Aluguel</option>
+          <option value="">Venda + Aluguel</option><option>Venda</option><option>Aluguel</option>
         </select>
         <select id="f-status" onchange="renderImoveis()">
-          <option value="">Todos</option>
-          <option>Ativo</option><option>Inativo</option>
+          <option value="">Todos</option><option>Ativo</option><option>Inativo</option>
         </select>
         <button class="btn btn-primary" onclick="novoImovel()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Novo imóvel
         </button>
       </div>
-      <div class="imoveis-grid" id="imoveis-grid"></div>
+      <div class="imoveis-grid" id="imoveis-grid"><div class="loading" style="grid-column:1/-1"><div class="spinner"></div> Carregando...</div></div>
     </div>
 
-    <!-- ═══ FORM IMÓVEL ═══ -->
+    <!-- FORM IMÓVEL -->
     <div class="page" id="page-novo">
       <input type="hidden" id="edit-id">
-
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">Informações básicas</div>
-        </div>
+        <div class="card-header"><div class="card-title">Informações básicas</div></div>
         <div class="form-grid">
-          <div class="form-group full">
-            <label>Título do anúncio *</label>
-            <input id="n-titulo" placeholder="Ex: Casa 3 quartos com piscina no Savassi">
+          <div class="form-group full"><label>Título do anúncio *</label><input id="n-titulo" placeholder="Ex: Casa 3 quartos com piscina no Savassi"></div>
+          <div class="form-group"><label>Tipo de imóvel</label>
+            <select id="n-tipo"><option>Casa</option><option>Apartamento</option><option>Terreno</option><option>Sala Comercial</option><option>Galpão</option><option>Chácara</option></select>
           </div>
-          <div class="form-group">
-            <label>Tipo de imóvel</label>
-            <select id="n-tipo">
-              <option>Casa</option><option>Apartamento</option><option>Terreno</option>
-              <option>Sala Comercial</option><option>Galpão</option><option>Chácara</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Finalidade</label>
-            <select id="n-finalidade"><option>Venda</option><option>Aluguel</option></select>
-          </div>
-          <div class="form-group">
-            <label>Preço (R$)</label>
-            <input id="n-preco" type="number" placeholder="250000">
-          </div>
-          <div class="form-group">
-            <label>Condomínio (R$)</label>
-            <input id="n-cond" type="number" placeholder="0">
-          </div>
-          <div class="form-group full">
-            <label>Descrição</label>
-            <textarea id="n-desc" placeholder="Descreva o imóvel com detalhes: diferenciais, reformas, entorno, etc."></textarea>
-          </div>
-          <div class="form-group">
-            <label>Status</label>
-            <select id="n-status"><option>Ativo</option><option>Inativo</option></select>
-          </div>
-          <div class="form-group">
-            <label>Código de referência</label>
-            <input id="n-ref" placeholder="IM-001">
-          </div>
+          <div class="form-group"><label>Finalidade</label><select id="n-finalidade"><option>Venda</option><option>Aluguel</option></select></div>
+          <div class="form-group"><label>Preço (R$)</label><input id="n-preco" type="number" placeholder="250000"></div>
+          <div class="form-group"><label>Condomínio (R$)</label><input id="n-cond" type="number" placeholder="0"></div>
+          <div class="form-group full"><label>Descrição</label><textarea id="n-desc" placeholder="Descreva o imóvel com detalhes..."></textarea></div>
+          <div class="form-group"><label>Status</label><select id="n-status"><option>Ativo</option><option>Inativo</option></select></div>
+          <div class="form-group"><label>Código de referência</label><input id="n-ref" placeholder="IM-001"></div>
         </div>
       </div>
-
       <div class="card">
         <div class="card-header"><div class="card-title">Endereço</div></div>
         <div class="form-grid">
@@ -841,7 +288,6 @@
           </div>
         </div>
       </div>
-
       <div class="card">
         <div class="card-header"><div class="card-title">Características</div></div>
         <div class="form-grid-4">
@@ -854,13 +300,11 @@
           <div class="form-group"><label>Andar</label><input id="n-andar" type="number" min="0" placeholder="5"></div>
           <div class="form-group"><label>Total de andares</label><input id="n-andares" type="number" min="0" placeholder="12"></div>
         </div>
-
         <div style="margin-top:18px">
           <label style="display:block;margin-bottom:10px">Comodidades e diferenciais</label>
           <div class="amenities-grid" id="amenities-grid"></div>
         </div>
       </div>
-
       <div class="card">
         <div class="card-header"><div class="card-title">Fotos do imóvel</div></div>
         <div class="upload-zone" onclick="document.getElementById('foto-input').click()">
@@ -871,34 +315,28 @@
         <input type="file" id="foto-input" accept="image/*" multiple style="display:none" onchange="addFotos(this)">
         <div class="fotos-grid" id="fotos-grid"></div>
       </div>
-
       <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:32px">
         <button class="btn" onclick="cancelarForm()">Cancelar</button>
-        <button class="btn btn-primary" onclick="salvarImovel()">
+        <button class="btn btn-primary" id="btn-salvar" onclick="salvarImovel()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15"><polyline points="20 6 9 17 4 12"/></svg>
           Salvar imóvel
         </button>
       </div>
     </div>
 
-    <!-- ═══ LEADS ═══ -->
+    <!-- LEADS -->
     <div class="page" id="page-leads">
       <div class="card">
         <div class="card-header">
-          <div>
-            <div class="card-title">Leads recebidos</div>
-            <div class="card-subtitle">Contatos de clientes interessados</div>
-          </div>
+          <div><div class="card-title">Leads recebidos</div><div class="card-subtitle">Contatos de clientes interessados</div></div>
         </div>
         <div id="leads-content">
           <div class="empty-state">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-            <p>Nenhum lead ainda</p>
-            <span>Quando clientes enviarem formulários no seu site, eles aparecerão aqui.</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <p>Nenhum lead ainda</p><span>Adicione manualmente abaixo.</span>
           </div>
         </div>
       </div>
-
       <div class="card">
         <div class="card-header"><div class="card-title">Adicionar lead manualmente</div></div>
         <div class="form-grid">
@@ -917,13 +355,16 @@
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
+// ── CONFIG ──
+// API vazia = usa a mesma URL base (funciona no Render em /admin)
+const API = '';
+
 // ── DATA ──
-let imoveis = JSON.parse(localStorage.getItem('imob_imoveis') || '[]');
-let leads   = JSON.parse(localStorage.getItem('imob_leads')   || '[]');
+let imoveis = [];
+let leads   = JSON.parse(localStorage.getItem('imob_leads') || '[]');
 let fotos   = [];
 let editId  = null;
 
@@ -935,9 +376,46 @@ const AMENITIES = [
 
 let amenSel = new Set();
 
-function save() {
-  localStorage.setItem('imob_imoveis', JSON.stringify(imoveis));
-  localStorage.setItem('imob_leads',   JSON.stringify(leads));
+// ── API HELPERS ──
+async function apiGet() {
+  const res = await fetch(API + '/api/imoveis');
+  if (!res.ok) throw new Error('Erro ao buscar');
+  return res.json();
+}
+
+async function apiPost(dados) {
+  const res = await fetch(API + '/api/imoveis', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dados)
+  });
+  if (!res.ok) throw new Error('Erro ao salvar');
+  return res.json();
+}
+
+async function apiPut(id, dados) {
+  const res = await fetch(API + '/api/imoveis/' + id, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dados)
+  });
+  if (!res.ok) throw new Error('Erro ao atualizar');
+  return res.json();
+}
+
+async function apiDelete(id) {
+  const res = await fetch(API + '/api/imoveis/' + id, { method: 'DELETE' });
+  if (!res.ok) throw new Error('Erro ao excluir');
+  return res.json();
+}
+
+async function carregarImoveis() {
+  try {
+    imoveis = await apiGet();
+  } catch(e) {
+    console.error(e);
+    imoveis = [];
+  }
 }
 
 // ── INIT ──
@@ -946,7 +424,7 @@ document.getElementById('topbar-date').textContent = new Date().toLocaleDateStri
 });
 
 buildAmenities();
-updateDash();
+carregarImoveis().then(() => { updateDash(); });
 
 function buildAmenities() {
   document.getElementById('amenities-grid').innerHTML = AMENITIES.map(a =>
@@ -956,7 +434,7 @@ function buildAmenities() {
 
 function toggleAmen(el, name) {
   if (amenSel.has(name)) { amenSel.delete(name); el.classList.remove('sel'); }
-  else                   { amenSel.add(name);    el.classList.add('sel');    }
+  else { amenSel.add(name); el.classList.add('sel'); }
 }
 
 // ── NAVIGATION ──
@@ -965,12 +443,10 @@ function showPage(id, navEl) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   if (navEl) navEl.classList.add('active');
-
   const titles = {dashboard:'Dashboard',imoveis:'Imóveis',novo:'Novo imóvel',leads:'Leads'};
   document.getElementById('topbar-title').textContent = titles[id] || '';
-
-  if (id === 'dashboard') updateDash();
-  if (id === 'imoveis')   renderImoveis();
+  if (id === 'dashboard') carregarImoveis().then(updateDash);
+  if (id === 'imoveis')   carregarImoveis().then(renderImoveis);
   if (id === 'leads')     renderLeads();
   closeSidebar();
 }
@@ -981,21 +457,15 @@ function novoImovel() {
   document.getElementById('topbar-title').textContent = 'Novo imóvel';
 }
 
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-}
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-}
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+function closeSidebar()  { document.getElementById('sidebar').classList.remove('open'); }
 
 // ── DASHBOARD ──
 function updateDash() {
-  const v = imoveis.filter(i => i.finalidade === 'Venda').length;
-  const a = imoveis.filter(i => i.finalidade === 'Aluguel').length;
-  document.getElementById('s-total').textContent  = imoveis.length;
-  document.getElementById('s-venda').textContent  = v;
-  document.getElementById('s-aluguel').textContent = a;
-  document.getElementById('s-leads').textContent  = leads.length;
+  document.getElementById('s-total').textContent   = imoveis.length;
+  document.getElementById('s-venda').textContent   = imoveis.filter(i => i.finalidade === 'Venda').length;
+  document.getElementById('s-aluguel').textContent = imoveis.filter(i => i.finalidade === 'Aluguel').length;
+  document.getElementById('s-leads').textContent   = leads.length;
 
   const el = document.getElementById('dash-recentes');
   const rec = [...imoveis].reverse().slice(0, 5);
@@ -1006,9 +476,7 @@ function updateDash() {
     return;
   }
   el.innerHTML = `<div class="table-wrapper"><table>
-    <thead><tr>
-      <th>Título</th><th>Tipo</th><th>Finalidade</th><th>Cidade</th><th>Preço</th><th>Status</th>
-    </tr></thead>
+    <thead><tr><th>Título</th><th>Tipo</th><th>Finalidade</th><th>Cidade</th><th>Preço</th><th>Status</th></tr></thead>
     <tbody>` +
     rec.map(i => `<tr>
       <td style="font-weight:500">${i.titulo||'Sem título'}</td>
@@ -1017,8 +485,7 @@ function updateDash() {
       <td>${i.cidade||'—'}</td>
       <td style="color:var(--verde);font-weight:600">${fmtPreco(i.preco)}</td>
       <td><span class="badge ${i.status==='Ativo'?'badge-ativo':'badge-inativo'}">${i.status}</span></td>
-    </tr>`).join('') +
-    `</tbody></table></div>`;
+    </tr>`).join('') + `</tbody></table></div>`;
 }
 
 // ── IMÓVEIS LIST ──
@@ -1040,8 +507,7 @@ function renderImoveis() {
   if (!lista.length) {
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <p>Nenhum imóvel encontrado</p>
-      <span>Tente ajustar os filtros</span></div>`;
+      <p>Nenhum imóvel encontrado</p><span>Tente ajustar os filtros</span></div>`;
     return;
   }
 
@@ -1049,12 +515,8 @@ function renderImoveis() {
     <div class="imovel-card">
       <div class="imovel-img">
         ${i.fotos && i.fotos.length
-          ? `<img src="${i.fotos[0]}" alt="${i.titulo}">
-             ${i.fotos.length > 1 ? `<span class="img-count">${i.fotos.length} fotos</span>` : ''}`
-          : `<div class="no-foto">
-               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-               <span>Sem foto</span>
-             </div>`}
+          ? `<img src="${i.fotos[0]}" alt="${i.titulo}">${i.fotos.length > 1 ? `<span class="img-count">${i.fotos.length} fotos</span>` : ''}`
+          : `<div class="no-foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Sem foto</span></div>`}
       </div>
       <div class="imovel-body">
         <div class="imovel-badges">
@@ -1088,20 +550,15 @@ function renderImoveis() {
 function resetForm() {
   editId = null;
   document.getElementById('edit-id').value = '';
-  document.getElementById('topbar-title').textContent = 'Novo imóvel';
-
-  const fields = ['titulo','tipo','finalidade','preco','cond','desc','status','ref',
-                  'cidade','bairro','rua','numero','cep','estado',
-                  'area','areac','quartos','suites','banheiros','vagas','andar','andares'];
-  fields.forEach(k => {
+  ['titulo','tipo','finalidade','preco','cond','desc','status','ref',
+   'cidade','bairro','rua','numero','cep','estado',
+   'area','areac','quartos','suites','banheiros','vagas','andar','andares'].forEach(k => {
     const el = document.getElementById('n-' + k);
     if (!el) return;
     if (el.tagName === 'SELECT') el.selectedIndex = 0;
     else el.value = '';
   });
-
-  fotos = [];
-  amenSel = new Set();
+  fotos = []; amenSel = new Set();
   document.querySelectorAll('.amenity-item').forEach(el => el.classList.remove('sel'));
   renderFotos();
 }
@@ -1112,35 +569,28 @@ function editarImovel(id) {
   editId = id;
   document.getElementById('edit-id').value = id;
   document.getElementById('topbar-title').textContent = 'Editar imóvel';
-
-  const map = {
-    titulo:'titulo',tipo:'tipo',finalidade:'finalidade',preco:'preco',cond:'cond',
-    desc:'desc',status:'status',ref:'ref',cidade:'cidade',bairro:'bairro',rua:'rua',
-    numero:'numero',cep:'cep',estado:'estado',area:'area',areac:'areac',
-    quartos:'quartos',suites:'suites',banheiros:'banheiros',vagas:'vagas',andar:'andar',andares:'andares'
-  };
-
-  Object.entries(map).forEach(([field, key]) => {
-    const el = document.getElementById('n-' + field);
-    if (!el) return;
-    if (el.tagName === 'SELECT') el.value = im[key] || '';
-    else el.value = im[key] || '';
+  ['titulo','tipo','finalidade','preco','cond','desc','status','ref',
+   'cidade','bairro','rua','numero','cep','estado',
+   'area','areac','quartos','suites','banheiros','vagas','andar','andares'].forEach(k => {
+    const el = document.getElementById('n-' + k);
+    if (el) el.value = im[k] || '';
   });
-
   fotos = im.fotos ? [...im.fotos] : [];
   amenSel = new Set(im.amenidades || []);
   document.querySelectorAll('.amenity-item').forEach(el => {
     el.classList.toggle('sel', amenSel.has(el.textContent.trim()));
   });
-
   renderFotos();
   showPage('novo', document.querySelectorAll('.nav-item')[2]);
 }
 
-function salvarImovel() {
+async function salvarImovel() {
   const titulo = document.getElementById('n-titulo').value.trim();
-  const cidade = document.getElementById('n-cidade').value.trim();
   if (!titulo) { toast('Informe o título do imóvel.', 'error'); return; }
+
+  const btn = document.getElementById('btn-salvar');
+  btn.disabled = true;
+  btn.textContent = 'Salvando...';
 
   const dados = {
     id: editId || Date.now().toString(),
@@ -1171,25 +621,35 @@ function salvarImovel() {
     updatedAt:  new Date().toISOString()
   };
 
-  if (editId) {
-    const idx = imoveis.findIndex(x => x.id === editId);
-    if (idx > -1) imoveis[idx] = dados;
-  } else {
-    dados.createdAt = new Date().toISOString();
-    imoveis.push(dados);
+  try {
+    if (editId) {
+      await apiPut(editId, dados);
+    } else {
+      dados.createdAt = new Date().toISOString();
+      await apiPost(dados);
+    }
+    toast(editId ? 'Imóvel atualizado!' : 'Imóvel cadastrado!', 'success');
+    editId = null;
+    await carregarImoveis();
+    setTimeout(() => showPage('imoveis', document.querySelectorAll('.nav-item')[1]), 600);
+  } catch(e) {
+    toast('Erro ao salvar. Tente novamente.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15"><polyline points="20 6 9 17 4 12"/></svg> Salvar imóvel';
   }
-
-  save();
-  toast(editId ? 'Imóvel atualizado com sucesso!' : 'Imóvel cadastrado com sucesso!', 'success');
-  editId = null;
-  setTimeout(() => showPage('imoveis', document.querySelectorAll('.nav-item')[1]), 600);
 }
 
-function excluirImovel(id) {
+async function excluirImovel(id) {
   if (!confirm('Deseja excluir este imóvel? Esta ação não pode ser desfeita.')) return;
-  imoveis = imoveis.filter(x => x.id !== id);
-  save(); renderImoveis(); updateDash();
-  toast('Imóvel excluído.', 'success');
+  try {
+    await apiDelete(id);
+    await carregarImoveis();
+    renderImoveis(); updateDash();
+    toast('Imóvel excluído.', 'success');
+  } catch(e) {
+    toast('Erro ao excluir.', 'error');
+  }
 }
 
 function cancelarForm() {
@@ -1209,10 +669,8 @@ function addFotos(input) {
 
 function renderFotos() {
   document.getElementById('fotos-grid').innerHTML = fotos.map((f, i) =>
-    `<div class="foto-thumb">
-       <img src="${f}" alt="foto ${i+1}">
-       <button class="foto-del" onclick="removerFoto(${i})">✕</button>
-     </div>`).join('');
+    `<div class="foto-thumb"><img src="${f}" alt="foto ${i+1}"><button class="foto-del" onclick="removerFoto(${i})">✕</button></div>`
+  ).join('');
 }
 
 function removerFoto(i) { fotos.splice(i, 1); renderFotos(); }
@@ -1222,8 +680,7 @@ function adicionarLead() {
   const nome = document.getElementById('l-nome').value.trim();
   if (!nome) { toast('Informe o nome do lead.', 'error'); return; }
   leads.push({
-    id:     Date.now().toString(),
-    nome,
+    id: Date.now().toString(), nome,
     tel:    document.getElementById('l-tel').value,
     email:  document.getElementById('l-email').value,
     imovel: document.getElementById('l-imovel').value,
@@ -1231,7 +688,8 @@ function adicionarLead() {
     status: 'Novo',
     data:   new Date().toLocaleDateString('pt-BR')
   });
-  save(); renderLeads(); updateDash();
+  localStorage.setItem('imob_leads', JSON.stringify(leads));
+  renderLeads(); updateDash();
   ['l-nome','l-tel','l-email','l-imovel','l-obs'].forEach(id => document.getElementById(id).value='');
   toast('Lead adicionado!', 'success');
 }
@@ -1241,31 +699,25 @@ function renderLeads() {
   if (!leads.length) {
     el.innerHTML = `<div class="empty-state">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-      <p>Nenhum lead ainda</p>
-      <span>Adicione manualmente ou integre o formulário do seu site.</span></div>`;
+      <p>Nenhum lead ainda</p><span>Adicione manualmente ou integre o formulário do seu site.</span></div>`;
     return;
   }
   el.innerHTML = `<div class="table-wrapper"><table>
-    <thead><tr>
-      <th>Nome</th><th>Telefone</th><th>E-mail</th><th>Imóvel</th><th>Data</th><th>Status</th><th></th>
-    </tr></thead>
+    <thead><tr><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Imóvel</th><th>Data</th><th>Status</th><th></th></tr></thead>
     <tbody>` +
     leads.map(l => `<tr>
-      <td style="font-weight:500">${l.nome}</td>
-      <td>${l.tel||'—'}</td>
-      <td>${l.email||'—'}</td>
-      <td>${l.imovel||'—'}</td>
-      <td>${l.data}</td>
+      <td style="font-weight:500">${l.nome}</td><td>${l.tel||'—'}</td><td>${l.email||'—'}</td>
+      <td>${l.imovel||'—'}</td><td>${l.data}</td>
       <td><span class="badge badge-ativo">${l.status}</span></td>
       <td><button class="btn btn-danger btn-sm" onclick="excluirLead('${l.id}')">🗑</button></td>
-    </tr>`).join('') +
-    `</tbody></table></div>`;
+    </tr>`).join('') + `</tbody></table></div>`;
 }
 
 function excluirLead(id) {
   if (!confirm('Remover este lead?')) return;
   leads = leads.filter(x => x.id !== id);
-  save(); renderLeads(); updateDash();
+  localStorage.setItem('imob_leads', JSON.stringify(leads));
+  renderLeads(); updateDash();
 }
 
 // ── HELPERS ──
@@ -1276,9 +728,7 @@ function fmtPreco(v) {
 
 function toast(msg, type='success') {
   const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = `toast ${type}`;
-  el.style.display = 'block';
+  el.textContent = msg; el.className = `toast ${type}`; el.style.display = 'block';
   clearTimeout(el._t);
   el._t = setTimeout(() => el.style.display = 'none', 2800);
 }

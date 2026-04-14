@@ -42,6 +42,20 @@ def add_imovel():
         return jsonify({"erro": str(e)}), 500
 
 
+@app.route("/api/imoveis/<id>", methods=["PUT"])
+def update_imovel(id):
+    try:
+        imoveis = ler()
+        dados = request.json
+        if not dados:
+            return jsonify({"erro": "dados vazios"}), 400
+        imoveis = [dados if i.get("id") == id else i for i in imoveis]
+        salvar(imoveis)
+        return jsonify({"ok": True})
+    except Exception as e:
+        return jsonify({"erro": str(e)}), 500
+
+
 @app.route("/api/imoveis/<id>", methods=["DELETE"])
 def delete_imovel(id):
     imoveis = ler()
