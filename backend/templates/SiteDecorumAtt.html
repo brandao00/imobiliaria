@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decorum Imóveis — Roberto Antônio de Sousa | CRECI 1662</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold-300: #f5d98a;
+      --gold-400: #e9c55c;
+      --gold-500: #d4a92a;
+      --gold-600: #b8891a;
+      --gold-700: #8f6510;
+      --dark:     #1a1512;
+      --dark-700: #2e2620;
+      --dark-600: #4a3f35;
+      --beige-50:  #faf8f5;
+      --beige-100: #f4efe8;
+      --beige-200: #e8dfd2;
+      --beige-300: #d6c9b8;
+      --white:    #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ────────────────────────────────────────────── */
+    #header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      transition: all .35s ease;
+      padding: 1.25rem 0;
+    }
+    #header.scrolled {
+      background: var(--white);
+      box-shadow: 0 2px 20px rgba(0,0,0,.08);
+      padding: .625rem 0;
+    }
+    .header-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+    .logo-icon {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-700));
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(180,130,20,.35);
+      flex-shrink: 0;
+    }
+    .logo-icon svg { width: 20px; height: 20px; fill: #fff; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; line-height: 1.1; transition: color .3s; }
+    .logo-sub  { font-size: .65rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; transition: color .3s; }
+    #header:not(.scrolled) .logo-name { color: #fff; }
+    #header:not(.scrolled) .logo-sub  { color: var(--gold-300); }
+    #header.scrolled .logo-name { color: var(--dark); }
+    #header.scrolled .logo-sub  { color: var(--gold-600); }
+
+    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
+    .nav-links a {
+      font-size: .875rem; font-weight: 500; text-decoration: none;
+      transition: color .25s;
+    }
+    #header:not(.scrolled) .nav-links a { color: rgba(255,255,255,.88); }
+    #header.scrolled .nav-links a { color: var(--dark-600); }
+    .nav-links a:hover { color: var(--gold-500) !important; }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: linear-gradient(135deg, var(--gold-600), var(--gold-400));
+      color: #fff; font-family: 'DM Sans', sans-serif;
+      font-weight: 600; font-size: .875rem;
+      padding: .625rem 1.25rem; border-radius: .5rem; border: none; cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 3px 12px rgba(180,130,20,.3);
+      transition: all .3s; white-space: nowrap;
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, var(--gold-700), var(--gold-500));
+      box-shadow: 0 5px 18px rgba(180,130,20,.4);
+      transform: translateY(-1px);
+    }
+    .btn-gold:active { transform: scale(.97); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      border: 2px solid rgba(255,255,255,.45); color: #fff;
+      font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1rem;
+      padding: .875rem 2rem; border-radius: .5rem;
+      text-decoration: none; transition: all .3s;
+      background: transparent;
+    }
+    .btn-outline:hover { background: #fff; color: var(--dark); border-color: #fff; }
+
+    .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: .5rem; }
+    .menu-toggle span { display: block; width: 22px; height: 2px; margin: 4px 0; transition: all .3s; }
+    #header:not(.scrolled) .menu-toggle span { background: #fff; }
+    #header.scrolled .menu-toggle span { background: var(--dark); }
+
+    /* mobile nav */
+    .mobile-nav {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      background: #fff; border-top: 1px solid var(--beige-200);
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      padding: 1rem 1.5rem 1.5rem; flex-direction: column; gap: 1rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: .95rem; font-weight: 500; color: var(--dark); text-decoration: none; padding: .375rem 0; }
+    .mobile-nav a:hover { color: var(--gold-600); }
+
+    @media (max-width: 768px) {
+      .nav-links, .header-cta { display: none; }
+      .menu-toggle { display: block; }
+    }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    #inicio {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(26,21,18,.78), rgba(26,21,18,.62), rgba(26,21,18,.82));
+    }
+    .hero-top-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(to right, var(--gold-600), var(--gold-400), var(--gold-600));
+    }
+    .hero-content {
+      position: relative; z-index: 2; text-align: center;
+      padding: 0 1.25rem; max-width: 880px; animation: fadeUp .8s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .625rem;
+      background: rgba(255,255,255,.1); backdrop-filter: blur(8px);
+      border: 1px solid rgba(229,197,92,.3); color: var(--gold-300);
+      font-size: .8rem; font-weight: 500; padding: .5rem 1rem; border-radius: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--gold-400);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      font-weight: 700; color: #fff; line-height: 1.12; margin-bottom: 1.5rem;
+    }
+    .hero-title .accent {
+      background: linear-gradient(135deg, var(--gold-400), var(--gold-300));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      color: rgba(255,255,255,.78); font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 640px; margin: 0 auto 2.5rem; line-height: 1.7;
+    }
+    .hero-ctas {
+      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 3.5rem;
+    }
+    .hero-ctas .btn-gold { font-size: 1rem; padding: 1rem 2.25rem; }
+
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; max-width: 380px; margin: 0 auto;
+    }
+    .stat-val { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; color: var(--gold-400); }
+    .stat-lbl { color: rgba(255,255,255,.55); font-size: .72rem; margin-top: .2rem; }
+
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,.5); text-decoration: none; animation: bounce 2s infinite;
+      transition: color .25s;
+    }
+    .hero-scroll:hover { color: var(--gold-400); }
+    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+    .hero-scroll svg { width: 2rem; height: 2rem; }
+
+    /* ── SEARCH FILTER ───────────────────────────────────────── */
+    #search-section {
+      position: relative; z-index: 20;
+      padding: 0 1.25rem;
+      margin-top: -3.5rem;
+    }
+    .search-card {
+      max-width: 1100px; margin: 0 auto;
+      background: #fff; border-radius: 1.25rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+      border: 1px solid var(--beige-200);
+      padding: 1.75rem 2rem;
+    }
+    .search-header { display: flex; align-items: center; gap: .625rem; margin-bottom: 1.25rem; }
+    .search-stripe { width: 4px; height: 1.5rem; background: linear-gradient(to bottom, var(--gold-500), var(--gold-700)); border-radius: 4px; }
+    .search-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--dark); }
+
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 1100px) { .filter-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 700px) { .filter-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .filter-grid { grid-template-columns: 1fr; } }
+
+    .filter-group { display: flex; flex-direction: column; gap: .3rem; }
+    .filter-label { font-size: .7rem; font-weight: 600; color: var(--dark-600); text-transform: uppercase; letter-spacing: .1em; }
+    .filter-select {
+      border: 1px solid var(--beige-300); border-radius: .5rem;
+      padding: .625rem .75rem; font-size: .875rem; color: var(--dark);
+      background: var(--beige-50); font-family: 'DM Sans', sans-serif;
+      cursor: pointer; outline: none; transition: border-color .25s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a3f35' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right .75rem center;
+      padding-right: 2rem;
+    }
+    .filter-select:focus { border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(212,169,42,.12); }
+
+    .filter-actions { display: flex; align-items: center; gap: .75rem; margin-top: 1.25rem; flex-wrap: wrap; }
+    .btn-clear {
+      font-size: .875rem; color: var(--dark-600); background: none; border: 1px solid var(--beige-300);
+      padding: .625rem 1rem; border-radius: .5rem; cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: all .25s;
+    }
+    .btn-clear:hover { border-color: var(--gold-400); color: var(--gold-600); }
+
+    /* ── FEATURED PROPERTIES ─────────────────────────────────── */
+    #imoveis {
+      padding: 5rem 1.25rem;
+      background: var(--beige-50);
+    }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+    .section-head { text-align: center; margin-bottom: 3rem; }
+    .section-kicker {
+      color: var(--gold-600); font-size: .75rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .2em; margin-bottom: .5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 600; color: var(--dark); line-height: 1.25;
+    }
+    .gold-divider {
+      width: 4rem; height: 4px; border-radius: 4px;
+      background: linear-gradient(to right, var(--gold-600), var(--gold-400));
+      margin: .75rem auto 1.25rem;
+    }
+    .section-desc { color: var(--dark-600); max-width: 500px; margin: 0 auto; line-height: 1.65; font-size: .95rem; }
+
+    .property-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+    @media (max-width: 960px) { .property-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .property-grid { grid-template-columns: 1fr; } }
+
+    /* property card */
+    .prop-card {
+      background: #fff; border-radius: 1rem; overflow: hidden;
+      border: 1px solid var(--beige-200);
+      box-shadow: 0 4px 20px rgba(0,0,0,.05);
+      transition: all .35s ease;
+    }
+    .prop-card:hover {
+      border-color: var(--gold-300);
+      box-shadow: 0 12px 36px rgba(0,0,0,.1);
+      transform: translateY(-4px);
+    }
+    .prop-img-wrap { position: relative; height: 220px; overflow: hidden; }
+    .prop-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .55s ease;
+    }
+    .prop-card:hover .prop-img-wrap img { transform: scale(1.06); }
+    .prop-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,21,18,.5) 0%, transparent 60%);
+    }
+
+    .prop-tag {
+      position: absolute; top: .75rem; left: .75rem;
+      font-size: .7rem; font-weight: 700; padding: .3rem .75rem;
+      border-radius: 2rem; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .tag-destaque { background: linear-gradient(135deg, var(--gold-600), var(--gold-400)); color: #fff; }
+    .tag-novo     { background: #10b981; color: #fff; }
+    .tag-oportunidade { background: #ef4444; color: #fff; }
+
+    .prop-modalidade-badge {
+      position: absolute; bottom: .75rem; right: .75rem;
+      font-size: .7rem; font-weight: 700; padding: .3rem .75rem;
+      border-radius: 2rem; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .badge-compra { background: rgba(180,130,20,.9); color: #fff; }
+    .badge-aluguel { background: rgba(59,130,246,.9); color: #fff; }
+
+    .prop-type-badge {
+      position: absolute; top: .75rem; right: .75rem;
+      background: rgba(255,255,255,.93); backdrop-filter: blur(4px);
+      color: var(--dark-700); font-size: .7rem; font-weight: 600;
+      padding: .3rem .75rem; border-radius: 2rem; border: 1px solid var(--beige-200);
+    }
+    .prop-location {
+      position: absolute; bottom: .75rem; left: .75rem;
+      display: flex; align-items: center; gap: .35rem;
+      color: #fff; font-size: .8rem; font-weight: 500;
+    }
+    .prop-location svg { width: 13px; height: 13px; fill: var(--gold-400); flex-shrink: 0; }
+
+    .prop-body { padding: 1.25rem; }
+    .prop-title {
+      font-family: 'Playfair Display', serif; font-weight: 600;
+      font-size: 1.05rem; color: var(--dark); line-height: 1.3; margin-bottom: .25rem;
+      transition: color .25s;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .prop-card:hover .prop-title { color: var(--gold-700); }
+    .prop-city { font-size: .8rem; color: var(--dark-600); margin-bottom: 1rem; }
+
+    .prop-specs {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      color: var(--dark-600); font-size: .8rem; margin-bottom: 1.25rem;
+    }
+    .prop-spec { display: flex; align-items: center; gap: .35rem; }
+    .prop-spec svg { width: 14px; height: 14px; fill: var(--gold-500); flex-shrink: 0; }
+
+    .prop-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1rem; border-top: 1px solid var(--beige-200);
+    }
+    .prop-price-lbl { font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--dark-600); font-weight: 600; }
+    .prop-price {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem;
+      font-weight: 700; color: var(--gold-700); line-height: 1;
+    }
+    .btn-interest {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: #10b981; color: #fff; font-weight: 600; font-size: .8rem;
+      padding: .625rem 1rem; border-radius: .625rem; text-decoration: none;
+      transition: background .25s;
+    }
+    .btn-interest:hover { background: #059669; }
+    .btn-interest svg { width: 14px; height: 14px; fill: #fff; }
+
+    /* empty state */
+    .empty-state { text-align: center; padding: 5rem 1rem; }
+    .empty-icon {
+      width: 5rem; height: 5rem; border-radius: 50%;
+      background: var(--beige-200); display: flex; align-items: center;
+      justify-content: center; font-size: 2.25rem; margin: 0 auto 1.25rem;
+    }
+    .empty-state h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; margin-bottom: .5rem; }
+    .empty-state p { color: var(--dark-600); font-size: .9rem; }
+
+    .more-cta { text-align: center; margin-top: 3rem; }
+    .btn-outline-gold {
+      display: inline-flex; align-items: center; gap: .5rem;
+      border: 2px solid var(--gold-500); color: var(--gold-600);
+      font-weight: 600; font-size: .95rem; padding: .875rem 2rem;
+      border-radius: .5rem; text-decoration: none; transition: all .3s;
+    }
+    .btn-outline-gold:hover { background: var(--gold-500); color: #fff; }
+
+    /* ── WHY CHOOSE US ────────────────────────────────────────── */
+    #diferenciais { padding: 5rem 1.25rem; background: #fff; }
+    .differentials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    @media (max-width: 900px) { .differentials-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .differentials-grid { grid-template-columns: 1fr; } }
+
+    .diff-card {
+      padding: 1.5rem; border-radius: 1rem;
+      border: 1px solid var(--beige-200); background: var(--beige-50);
+      transition: all .35s;
+    }
+    .diff-card:hover {
+      background: #fff; border-color: var(--gold-300);
+      box-shadow: 0 8px 32px rgba(0,0,0,.07);
+    }
+    .diff-icon {
+      width: 3.25rem; height: 3.25rem; border-radius: .75rem;
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-700));
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem; box-shadow: 0 4px 12px rgba(180,130,20,.25);
+      transition: transform .3s;
+    }
+    .diff-card:hover .diff-icon { transform: scale(1.1); }
+    .diff-icon svg { width: 1.5rem; height: 1.5rem; fill: #fff; }
+    .diff-title {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      font-weight: 600; color: var(--dark); margin-bottom: .625rem;
+      transition: color .25s;
+    }
+    .diff-card:hover .diff-title { color: var(--gold-700); }
+    .diff-desc { color: var(--dark-600); font-size: .875rem; line-height: 1.7; }
+
+    .cta-banner {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-700) 100%);
+      border-radius: 1.5rem; padding: 3rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .cta-banner h3 {
+      font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700; color: #fff; margin-bottom: .5rem; line-height: 1.25;
+    }
+    .cta-banner p { color: rgba(255,255,255,.65); font-size: .95rem; }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    #contato { background: var(--dark); color: #fff; }
+    .footer-top-bar {
+      height: 3px;
+      background: linear-gradient(to right, var(--gold-700), var(--gold-400), var(--gold-700));
+    }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 4rem 1.5rem 2.5rem; }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+      gap: 2.5rem; margin-bottom: 3rem;
+    }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    .footer-logo { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; }
+    .footer-logo .logo-icon { width: 48px; height: 48px; }
+    .footer-logo .logo-icon svg { width: 22px; height: 22px; }
+    .footer-logo .logo-name { font-size: 1.4rem; color: #fff; }
+    .footer-logo .logo-sub { color: var(--gold-400); }
+    .footer-tagline { color: rgba(255,255,255,.55); font-size: .875rem; line-height: 1.7; margin-bottom: 1.25rem; }
+    .social-links { display: flex; gap: .625rem; }
+    .social-link {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: background .25s;
+    }
+    .social-link:hover { background: var(--gold-600); }
+    .social-link svg { width: 16px; height: 16px; fill: #fff; }
+
+    .footer-col-title {
+      font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600;
+      color: #fff; margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: .625rem;
+    }
+    .footer-col-title::before {
+      content: ''; display: block; width: 1.25rem; height: 2px;
+      background: var(--gold-500); flex-shrink: 0;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+    .footer-links a { color: rgba(255,255,255,.55); font-size: .875rem; text-decoration: none; transition: color .25s; }
+    .footer-links a:hover { color: var(--gold-400); }
+
+    .contact-items { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: .75rem; }
+    .contact-item svg { width: 15px; height: 15px; fill: var(--gold-500); margin-top: 2px; flex-shrink: 0; }
+    .contact-item a, .contact-item span { color: rgba(255,255,255,.55); font-size: .875rem; text-decoration: none; transition: color .25s; line-height: 1.5; }
+    .contact-item a:hover { color: var(--gold-400); }
+    .creci-box {
+      border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05);
+      border-radius: .75rem; padding: .875rem 1rem;
+    }
+    .creci-box .lbl { color: rgba(255,255,255,.35); font-size: .65rem; text-transform: uppercase; letter-spacing: .12em; margin-bottom: .2rem; }
+    .creci-box .name { color: #fff; font-weight: 600; font-size: .875rem; margin-bottom: .15rem; }
+    .creci-box .creci { color: var(--gold-400); font-size: .78rem; font-weight: 500; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1); padding-top: 1.75rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-copy, .footer-creci { color: rgba(255,255,255,.35); font-size: .8rem; text-align: center; }
+
+    /* ── UTILS ────────────────────────────────────────────────── */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="#inicio">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </div>
+      <div>
+        <div class="logo-name">Decorum</div>
+        <div class="logo-sub">Imóveis</div>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#imoveis">Imóveis</a></li>
+      <li><a href="#diferenciais">Diferenciais</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+
+    <div class="header-cta">
+      <a href="https://wa.me/5531971467412" target="_blank" rel="noopener" class="btn-gold">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        (31) 97146-7412
+      </a>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#inicio" onclick="closeMobileMenu()">Início</a>
+    <a href="#imoveis" onclick="closeMobileMenu()">Imóveis</a>
+    <a href="#diferenciais" onclick="closeMobileMenu()">Diferenciais</a>
+    <a href="#contato" onclick="closeMobileMenu()">Contato</a>
+    <a href="https://wa.me/5531971467412" target="_blank" rel="noopener" class="btn-gold" style="justify-content:center;margin-top:.5rem">
+      (31) 97146-7412
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-top-bar"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      CRECI 1662 — Roberto Antônio de Sousa
+    </div>
+    <h1 class="hero-title">
+      O imóvel dos seus<br>
+      <span class="accent">sonhos</span> está aqui
+    </h1>
+    <p class="hero-sub">
+      Há mais de uma década conectando famílias aos melhores imóveis de Betim e região.
+      Qualidade, confiança e excelência em cada negociação.
+    </p>
+    <div class="hero-ctas">
+      <a href="#imoveis" class="btn-gold">Ver Imóveis</a>
+      <a href="https://wa.me/5531971467412" target="_blank" rel="noopener" class="btn-outline">Falar com Corretor</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-val">500+</div><div class="stat-lbl">Imóveis Vendidos</div></div>
+      <div><div class="stat-val">10+</div><div class="stat-lbl">Anos de Mercado</div></div>
+      <div><div class="stat-val">100%</div><div class="stat-lbl">Satisfação</div></div>
+    </div>
+  </div>
+
+  <a href="#imoveis" class="hero-scroll" aria-label="Rolar para baixo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
+</section>
+
+<!-- SEARCH FILTER -->
+<div id="search-section">
+  <div class="search-card">
+    <div class="search-header">
+      <div class="search-stripe"></div>
+      <span class="search-title">Buscar Imóveis</span>
+    </div>
+    <div class="filter-grid">
+      <div class="filter-group">
+        <label class="filter-label">Modalidade</label>
+        <select class="filter-select" id="f-modalidade">
+          <option value="">Compra e Aluguel</option>
+          <option value="Compra">Compra</option>
+          <option value="Aluguel">Aluguel</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Tipo</label>
+        <select class="filter-select" id="f-type">
+          <option value="">Todos os tipos</option>
+          <option>Casa</option><option>Apartamento</option>
+          <option>Terreno</option><option>Comercial</option><option>Cobertura</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Cidade</label>
+        <select class="filter-select" id="f-city">
+          <option value="">Todas as cidades</option>
+          <option>Belo Horizonte</option>
+          <option>Contagem</option>
+          <option>Betim</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Bairro</label>
+        <select class="filter-select" id="f-neighborhood">
+          <option value="">Todos os bairros</option>
+          <option>Centro</option><option>Citrolândia</option>
+          <option>Riacho das Pedras</option><option>Alterosas</option>
+          <option>Imbiruçu</option><option>PTB</option>
+          <option>Ressaca</option><option>Jardim Teresópolis</option>
+          <option>Petrovale</option><option>Santa Cruz</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Quartos</label>
+        <select class="filter-select" id="f-bedrooms">
+          <option value="">Qualquer</option>
+          <option value="1">1 quarto</option><option value="2">2 quartos</option>
+          <option value="3">3 quartos</option><option value="4">4 quartos</option>
+          <option value="5">5+ quartos</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Preço mínimo</label>
+        <select class="filter-select" id="f-pmin">
+          <option value="">Sem mínimo</option>
+          <option value="200000">R$ 200k</option><option value="300000">R$ 300k</option>
+          <option value="400000">R$ 400k</option><option value="500000">R$ 500k</option>
+          <option value="700000">R$ 700k</option><option value="1000000">R$ 1.000k</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Preço máximo</label>
+        <select class="filter-select" id="f-pmax">
+          <option value="">Sem máximo</option>
+          <option value="300000">R$ 300k</option><option value="500000">R$ 500k</option>
+          <option value="700000">R$ 700k</option><option value="1000000">R$ 1.000k</option>
+          <option value="1500000">R$ 1.500k</option><option value="2000000">R$ 2.000k</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-actions">
+      <button class="btn-gold" onclick="applyFilters()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+        Buscar Imóveis
+      </button>
+      <button class="btn-clear" onclick="clearFilters()">Limpar filtros</button>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED PROPERTIES -->
+<section id="imoveis">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="section-kicker">Portfólio Exclusivo</p>
+      <h2 class="section-title" id="props-heading">Imóveis em Destaque</h2>
+      <div class="gold-divider"></div>
+      <p class="section-desc" id="props-desc">Selecionamos os melhores imóveis para você e sua família em Betim e região</p>
+    </div>
+    <div class="property-grid" id="property-grid"></div>
+    <div class="empty-state hidden" id="empty-state">
+      <div class="empty-icon">🏠</div>
+      <h3>Nenhum imóvel encontrado</h3>
+      <p>Tente ajustar os filtros para ver mais resultados</p>
+    </div>
+    <div class="more-cta">
+      <a href="https://wa.me/5531971467412?text=Olá Roberto! Gostaria de ver mais imóveis disponíveis." target="_blank" rel="noopener" class="btn-outline-gold">
+        Ver todos os imóveis disponíveis
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section id="diferenciais">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="section-kicker">Nossos Diferenciais</p>
+      <h2 class="section-title">Por que nos escolher?</h2>
+      <div class="gold-divider"></div>
+      <p class="section-desc">Com Roberto Antônio de Sousa, você conta com um profissional dedicado a transformar a compra ou venda do seu imóvel em uma experiência segura e satisfatória</p>
+    </div>
+    <div class="differentials-grid">
+      <!-- cards injected by JS -->
+    </div>
+    <div class="cta-banner">
+      <div>
+        <h3>Pronto para encontrar seu imóvel ideal?</h3>
+        <p>Entre em contato agora e agende uma visita sem compromisso.</p>
+      </div>
+      <a href="https://wa.me/5531971467412?text=Olá Roberto! Gostaria de agendar uma consulta." target="_blank" rel="noopener" class="btn-gold" style="font-size:1rem;padding:1rem 2rem">
+        Falar com Roberto
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contato">
+  <div class="footer-top-bar"></div>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          </div>
+          <div>
+            <div class="logo-name" style="font-size:1.5rem">Decorum</div>
+            <div class="logo-sub">Imóveis</div>
+          </div>
+        </div>
+        <p class="footer-tagline">Excelência no mercado imobiliário de Betim e região. Realizando sonhos com segurança e transparência desde 2014.</p>
+        <div class="social-links">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navegação</div>
+        <ul class="footer-links">
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#imoveis">Imóveis em Destaque</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Tipos de Imóveis</div>
+        <ul class="footer-links">
+          <li><a href="#imoveis">Casas</a></li>
+          <li><a href="#imoveis">Apartamentos</a></li>
+          <li><a href="#imoveis">Coberturas</a></li>
+          <li><a href="#imoveis">Terrenos</a></li>
+          <li><a href="#imoveis">Imóveis Comerciais</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Contato</div>
+        <div class="contact-items">
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Betim, Minas Gerais<br>Região Metropolitana de BH</span>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            <a href="https://wa.me/5531971467412" target="_blank" rel="noopener">(31) 97146-7412</a>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="/cdn-cgi/l/email-protection#5d3e3233293c29321d39383e322f28303430322b38342e733e3230733f2f"><span class="__cf_email__" data-cfemail="86e5e9e8f2e7f2e9c6e2e3e5e9f4f3ebefebe9f0e3eff5a8e5e9eba8e4f4">[email&#160;protected]</span></a>
+          </div>
+        </div>
+        <div class="creci-box">
+          <div class="lbl">Corretor</div>
+          <div class="name">Roberto Antônio de Sousa</div>
+          <div class="creci">CRECI 1662</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy" id="footer-year">© 2025 Decorum Imóveis. Todos os direitos reservados.</p>
+      <p class="footer-creci">CRECI 1662 — Roberto Antônio de Sousa</p>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── DATA ─────────────────────────────────────────────────
+const API = 'https://imobiliaria-6f73.onrender.com';
+let properties = [];
+
+async function carregarImoveis() {
+  try {
+    const res = await fetch(`${API}/api/imoveis`);
+    const dados = await res.json();
+    // Adapta campos do painel para o formato do site
+    properties = dados
+      .filter(i => i.status === 'Ativo')
+      .map(i => ({
+        id:           i.id,
+        title:        i.titulo || 'Sem título',
+        type:         i.tipo || 'Casa',
+        neighborhood: i.bairro || '',
+        city:         i.cidade || 'Betim',
+        bedrooms:     Number(i.quartos) || 0,
+        bathrooms:    Number(i.banheiros) || 0,
+        parkingSpots: Number(i.vagas) || 0,
+        area:         Number(i.area) || 0,
+        price:        Number(i.preco) || 0,
+        tag:          i.finalidade === 'Venda' ? 'Compra' : null,
+        modalidade:   i.finalidade === 'Venda' ? 'Compra' : 'Aluguel',
+        image:        (i.fotos && i.fotos.length > 0) ? i.fotos[0] : 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800',
+      }));
+  } catch (e) {
+    console.error('Erro ao carregar imóveis:', e);
+    properties = [];
+  }
+  filterAndRender();
+}
+
+const differentials = [
+  { icon: 'shield', title:'Segurança Jurídica', desc:'Toda documentação analisada por especialistas. Você compra com total tranquilidade e sem surpresas.' },
+  { icon: 'award',  title:'Experiência Comprovada', desc:'CRECI 1662, com mais de uma década atuando no mercado imobiliário de Betim e região metropolitana.' },
+  { icon: 'clock',  title:'Atendimento Ágil', desc:'Resposta rápida via WhatsApp, visitas agendadas com flexibilidade de horário para sua conveniência.' },
+  { icon: 'users',  title:'Foco no Cliente', desc:'Ouvimos suas necessidades e encontramos o imóvel ideal para o seu perfil e orçamento.' },
+  { icon: 'mappin', title:'Conhecimento Local', desc:'Profundo conhecimento dos bairros de Betim, garantindo as melhores opções em localização e valorização.' },
+  { icon: 'shake',  title:'Negociação Transparente', desc:'Processo 100% transparente do início ao fim. Sem taxas ocultas, sem surpresas na negociação.' },
+];
+
+const icons = {
+  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  award:  '<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>',
+  clock:  '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  users:  '<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>',
+  mappin: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>',
+  shake:  '<path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l.77.78L12 21l7.65-7.65.78-.77a5.4 5.4 0 000-7.65v0z"/>',
+};
+
+// ── HEADER SCROLL ─────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE MENU ───────────────────────────────────────────
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+function closeMobileMenu() {
+  document.getElementById('mobileNav').classList.remove('open');
+}
+
+// ── FOOTER YEAR ───────────────────────────────────────────
+document.getElementById('footer-year').textContent =
+  `© ${new Date().getFullYear()} Decorum Imóveis. Todos os direitos reservados.`;
+
+// ── PROPERTY CARDS ────────────────────────────────────────
+function formatBRL(n) {
+  return new Intl.NumberFormat('pt-BR', { style:'currency', currency:'BRL', minimumFractionDigits:0 }).format(n);
+}
+
+function tagClass(tag) {
+  if (!tag) return '';
+  return { Destaque:'tag-destaque', Novo:'tag-novo', Oportunidade:'tag-oportunidade' }[tag] || '';
+}
+
+function renderCards(list) {
+  const grid = document.getElementById('property-grid');
+  const empty = document.getElementById('empty-state');
+  grid.innerHTML = '';
+
+  if (list.length === 0) {
+    grid.classList.add('hidden');
+    empty.classList.remove('hidden');
+    return;
+  }
+  grid.classList.remove('hidden');
+  empty.classList.add('hidden');
+
+  list.forEach(p => {
+    const msg = encodeURIComponent(`Olá Roberto! Tenho interesse no imóvel: ${p.title} (${p.neighborhood}) - ${formatBRL(p.price)}. Poderia me dar mais informações?`);
+    grid.innerHTML += `
+      <div class="prop-card">
+        <div class="prop-img-wrap">
+          <img src="${p.image}" alt="${p.title}" loading="lazy">
+          <div class="prop-img-overlay"></div>
+          ${p.tag ? `<span class="prop-tag ${tagClass(p.tag)}">${p.tag}</span>` : ''}
+          ${p.modalidade ? `<span class="prop-modalidade-badge ${p.modalidade === 'Aluguel' ? 'badge-aluguel' : 'badge-compra'}">${p.modalidade}</span>` : ''}
+          <span class="prop-type-badge">${p.type}</span>
+          <div class="prop-location">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3" fill="none" stroke="var(--gold-400)" stroke-width="2"/></svg>
+            ${p.neighborhood}
+          </div>
+        </div>
+        <div class="prop-body">
+          <h3 class="prop-title">${p.title}</h3>
+          <p class="prop-city">${p.city}, MG</p>
+          <div class="prop-specs">
+            <span class="prop-spec">
+              <svg viewBox="0 0 24 24"><path d="M2 4v16M22 4v16M2 12h20M2 8h4M2 16h4M18 8h4M18 16h4"/></svg>
+              ${p.bedrooms} quartos
+            </span>
+            <span class="prop-spec">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="2"/><path d="M5 11V7a2 2 0 012-2h4a2 2 0 012 2v4"/><rect x="2" y="13" width="20" height="8" rx="2"/></svg>
+              ${p.parkingSpots} vagas
+            </span>
+            <span class="prop-spec">
+              <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+              ${p.area}m²
+            </span>
+          </div>
+          <div class="prop-footer">
+            <div>
+              <div class="prop-price-lbl">Valor</div>
+              <div class="prop-price">${formatBRL(p.price)}</div>
+            </div>
+            <a href="https://wa.me/5531971467412?text=${msg}" target="_blank" rel="noopener" class="btn-interest">
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              Interesse
+            </a>
+          </div>
+        </div>
+      </div>`;
+  });
+}
+
+// ── DIFFERENTIALS ─────────────────────────────────────────
+function renderDifferentials() {
+  const grid = document.querySelector('.differentials-grid');
+  differentials.forEach(d => {
+    grid.innerHTML += `
+      <div class="diff-card">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            ${icons[d.icon]}
+          </svg>
+        </div>
+        <h3 class="diff-title">${d.title}</h3>
+        <p class="diff-desc">${d.desc}</p>
+      </div>`;
+  });
+}
+
+// ── FILTERS ───────────────────────────────────────────────
+let activeFilters = { type:'', neighborhood:'', city:'', modalidade:'', bedrooms:'', priceMin:'', priceMax:'' };
+
+function applyFilters() {
+  activeFilters = {
+    type:         document.getElementById('f-type').value,
+    neighborhood: document.getElementById('f-neighborhood').value,
+    city:         document.getElementById('f-city').value,
+    modalidade:   document.getElementById('f-modalidade').value,
+    bedrooms:     document.getElementById('f-bedrooms').value,
+    priceMin:     document.getElementById('f-pmin').value,
+    priceMax:     document.getElementById('f-pmax').value,
+  };
+  filterAndRender();
+  document.getElementById('imoveis').scrollIntoView({ behavior:'smooth' });
+}
+
+function clearFilters() {
+  ['f-type','f-neighborhood','f-city','f-modalidade','f-bedrooms','f-pmin','f-pmax'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  activeFilters = { type:'', neighborhood:'', city:'', modalidade:'', bedrooms:'', priceMin:'', priceMax:'' };
+  filterAndRender();
+}
+
+function filterAndRender() {
+  const f = activeFilters;
+  const isFiltered = f.type || f.neighborhood || f.city || f.modalidade || f.bedrooms || f.priceMin || f.priceMax;
+
+  const result = properties.filter(p => {
+    if (f.type && p.type !== f.type) return false;
+    if (f.neighborhood && p.neighborhood !== f.neighborhood) return false;
+    if (f.city && p.city !== f.city) return false;
+    if (f.modalidade && p.modalidade !== f.modalidade) return false;
+    if (f.bedrooms && p.bedrooms < parseInt(f.bedrooms)) return false;
+    if (f.priceMin && p.price < parseInt(f.priceMin)) return false;
+    if (f.priceMax && p.price > parseInt(f.priceMax)) return false;
+    return true;
+  });
+
+  document.getElementById('props-heading').textContent = isFiltered ? 'Resultados da Busca' : 'Imóveis em Destaque';
+  document.getElementById('props-desc').textContent = isFiltered
+    ? `${result.length} imóvel${result.length !== 1 ? 'is' : ''} encontrado${result.length !== 1 ? 's' : ''} com os filtros selecionados`
+    : 'Selecionamos os melhores imóveis para você e sua família em Betim e região';
+
+  renderCards(result);
+}
+
+// ── INIT ──────────────────────────────────────────────────
+renderDifferentials();
+carregarImoveis();
+</script>
+</body>
+</html>

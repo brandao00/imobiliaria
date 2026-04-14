@@ -57,7 +57,7 @@ def admin():
 
 @app.route("/")
 def site():
-    return render_template("index.html")
+    return render_template("siteDecorum.html")
 
 
 if __name__ == '__main__':
