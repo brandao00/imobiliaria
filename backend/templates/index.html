@@ -28,11 +28,15 @@
   .nav-item.active { background: var(--verde); color: white; font-weight: 500; }
   .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; opacity: .85; }
   .sidebar-footer { padding: 16px 12px 24px; border-top: 1px solid rgba(255,255,255,.07); }
-  .sidebar-footer .user-info { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; cursor: pointer; }
+  .sidebar-footer .user-info { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; cursor: pointer; min-width: 0; }
   .sidebar-footer .user-info:hover { background: rgba(255,255,255,.06); }
-  .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--verde); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: white; }
-  .user-name { font-size: 13px; color: white; font-weight: 500; }
-  .user-role { font-size: 11px; color: var(--sidebar-text); }
+  .logout-form { margin-top: 10px; }
+  .logout-btn { width: 100%; justify-content: center; background: rgba(255,255,255,.06); color: white; border-color: rgba(255,255,255,.08); }
+  .logout-btn:hover { background: rgba(255,255,255,.12); }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--verde); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: white; flex-shrink: 0; }
+  .user-meta { min-width: 0; max-width: 100%; }
+  .user-name { font-size: 13px; color: white; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .user-role { font-size: 11px; color: var(--sidebar-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .main { margin-left: 240px; flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
   .topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
   .topbar-left h1 { font-size: 17px; font-weight: 600; }
@@ -46,6 +50,7 @@
   .btn-primary:disabled { opacity: .6; cursor: not-allowed; }
   .btn-danger { background: var(--red-light); color: var(--red); border-color: #f5c6c6; }
   .btn-sm { padding: 5px 11px; font-size: 12px; }
+  .btn-ghost { background: transparent; }
   .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
   .stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; display: flex; align-items: flex-start; gap: 14px; }
   .stat-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -120,6 +125,7 @@
   .toast { position: fixed; bottom: 24px; right: 24px; background: var(--text); color: white; padding: 12px 20px; border-radius: var(--radius); font-size: 13px; font-weight: 500; display: none; z-index: 9999; box-shadow: 0 4px 20px rgba(0,0,0,.2); max-width: 320px; }
   .toast.success { background: var(--verde); }
   .toast.error { background: var(--red); }
+  .helper-text { font-size: 12px; color: var(--text-3); line-height: 1.5; }
   .page { display: none; }
   .page.active { display: block; }
   .amenities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
@@ -174,12 +180,20 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
       Leads
     </div>
+    <div class="nav-section">Conta</div>
+    <div class="nav-item" onclick="showPage('conta',this); carregarConta()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0116 0"/></svg>
+      Minha conta
+    </div>
   </nav>
   <div class="sidebar-footer">
     <div class="user-info">
       <div class="avatar">AD</div>
-      <div><div class="user-name">Administrador</div><div class="user-role">Imobiliária</div></div>
+      <div class="user-meta"><div class="user-name" title="{{ admin_user }}">{{ admin_user }}</div><div class="user-role">Imobiliária</div></div>
     </div>
+    <form class="logout-form" method="post" action="/admin/logout">
+      <button class="btn logout-btn" type="submit">Sair</button>
+    </form>
   </div>
 </aside>
 
@@ -192,6 +206,7 @@
       <div class="topbar-left"><h1 id="topbar-title">Dashboard</h1></div>
     </div>
     <div class="topbar-right">
+      <button class="btn btn-ghost" onclick="showPage('conta', document.querySelectorAll('.nav-item')[4]); carregarConta()">Minha conta</button>
       <span id="topbar-date" style="font-size:12px;color:var(--text-3)"></span>
     </div>
   </header>
@@ -352,6 +367,38 @@
       </div>
     </div>
 
+    <!-- CONTA -->
+    <div class="page" id="page-conta">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Conta administrativa</div>
+            <div class="card-subtitle">Atualize o e-mail e a senha da conta unica do painel</div>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>E-mail atual</label>
+            <input id="a-email" type="email" placeholder="admin@imobiliaria.com">
+          </div>
+          <div class="form-group">
+            <label>Senha atual *</label>
+            <input id="a-current-password" type="password" placeholder="Digite a senha atual">
+          </div>
+          <div class="form-group">
+            <label>Nova senha</label>
+            <input id="a-new-password" type="password" placeholder="Deixe em branco para manter">
+          </div>
+          <div class="form-group full">
+            <div class="helper-text">Use uma senha forte com pelo menos 8 caracteres. Se preencher apenas o e-mail, a senha atual sera mantida.</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:16px">
+          <button class="btn btn-primary" id="btn-salvar-conta" onclick="salvarConta()">Salvar alteracoes</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -367,6 +414,7 @@ let imoveis = [];
 let leads   = JSON.parse(localStorage.getItem('imob_leads') || '[]');
 let fotos   = [];
 let editId  = null;
+let adminEmail = '{{ admin_user }}';
 
 const AMENITIES = [
   'Piscina','Churrasqueira','Academia','Portaria 24h','Elevador','Playground',
@@ -409,6 +457,23 @@ async function apiDelete(id) {
   return res.json();
 }
 
+async function apiGetConta() {
+  const res = await fetch(API + '/api/admin/account');
+  if (!res.ok) throw new Error('Erro ao carregar conta');
+  return res.json();
+}
+
+async function apiSalvarConta(dados) {
+  const res = await fetch(API + '/api/admin/account', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dados)
+  });
+  const body = await res.json();
+  if (!res.ok) throw new Error(body.erro || 'Erro ao salvar conta');
+  return body;
+}
+
 async function carregarImoveis() {
   try {
     imoveis = await apiGet();
@@ -443,11 +508,12 @@ function showPage(id, navEl) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   if (navEl) navEl.classList.add('active');
-  const titles = {dashboard:'Dashboard',imoveis:'Imóveis',novo:'Novo imóvel',leads:'Leads'};
+  const titles = {dashboard:'Dashboard',imoveis:'Imóveis',novo:'Novo imóvel',leads:'Leads',conta:'Minha conta'};
   document.getElementById('topbar-title').textContent = titles[id] || '';
   if (id === 'dashboard') carregarImoveis().then(updateDash);
   if (id === 'imoveis')   carregarImoveis().then(renderImoveis);
   if (id === 'leads')     renderLeads();
+  if (id === 'conta')     carregarConta();
   closeSidebar();
 }
 
@@ -675,6 +741,57 @@ function renderFotos() {
 
 function removerFoto(i) { fotos.splice(i, 1); renderFotos(); }
 
+// ── CONTA ──
+async function carregarConta() {
+  try {
+    const dados = await apiGetConta();
+    adminEmail = dados.email || adminEmail;
+    document.getElementById('a-email').value = adminEmail;
+    document.querySelector('.user-name').textContent = adminEmail;
+  } catch (e) {
+    toast('Nao foi possivel carregar a conta.', 'error');
+  }
+}
+
+async function salvarConta() {
+  const email = document.getElementById('a-email').value.trim().toLowerCase();
+  const senhaAtual = document.getElementById('a-current-password').value;
+  const novaSenha = document.getElementById('a-new-password').value;
+
+  if (!email) {
+    toast('Informe o e-mail da conta.', 'error');
+    return;
+  }
+
+  if (!senhaAtual) {
+    toast('Informe a senha atual para salvar alteracoes.', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('btn-salvar-conta');
+  btn.disabled = true;
+  btn.textContent = 'Salvando...';
+
+  try {
+    const dados = await apiSalvarConta({
+      email,
+      current_password: senhaAtual,
+      new_password: novaSenha
+    });
+
+    adminEmail = dados.email;
+    document.querySelector('.user-name').textContent = adminEmail;
+    document.getElementById('a-current-password').value = '';
+    document.getElementById('a-new-password').value = '';
+    toast('Conta atualizada com sucesso.', 'success');
+  } catch (e) {
+    toast(e.message || 'Erro ao salvar a conta.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Salvar alteracoes';
+  }
+}
+
 // ── LEADS ──
 function adicionarLead() {
   const nome = document.getElementById('l-nome').value.trim();
@@ -732,6 +849,8 @@ function toast(msg, type='success') {
   clearTimeout(el._t);
   el._t = setTimeout(() => el.style.display = 'none', 2800);
 }
+
+carregarConta();
 </script>
 </body>
 </html>
